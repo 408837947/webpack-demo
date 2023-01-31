@@ -9,7 +9,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     // 输出文件的目标路径，必须要是绝对路径
-    path: resolve(__dirname, 'webpack-study'),
+    path: resolve(__dirname, 'webpackStudy'),
     // 输出文件名称
     filename: 'index.js',
   },

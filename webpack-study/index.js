@@ -1,1 +1,0 @@
-!function(){"use strict";window.showMsg=function(){var n;alert("liu".concat(null!=n?n:123))}}();
