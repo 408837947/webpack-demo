@@ -1,8 +1,28 @@
-html,body{
+html,
+body {
   margin: 0;
   padding: 0;
-  background-color: aqua;
 }
-.code{
+body{
+  width: 100%;
+  height: 100%;
+  background: url(../icon/bg.png) no-repeat 100% 100%;
+}
+
+.code {
   user-select: none;
+}
+
+@font-face {
+  font-family: "webfont";
+  font-weight: 400;
+  src: url("../fonts/d49H1Q0Sa1hFKznxCT8dn.woff2") format("woff2"),
+    url("../fonts//d49H1Q0Sa1hFKznxCT8dn.woff") format("woff");
+  font-display: swap;
+}
+
+.web-font{
+  font-family: "webfont" !important;
+  font-size: 16px;
+  font-style: normal;
 }
