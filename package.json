@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve":"webpack serve --open",
-    "build": "cross-env NODE_ENV=development webpack --config webpack.config.js",
-    "build:pro": "cross-env NODE_ENV=production webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "build:pro": "webpack --env production --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,7 +21,6 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.27.2",
-    "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
     "css-minimizer-webpack-plugin": "^4.2.2",
     "eslint": "^8.33.0",
