@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve":"webpack serve --open",
-    "build": "webpack --config webpack.config.js",
-    "build:pro": "webpack --env production --config webpack.config.js"
+    "serve": "webpack serve --open",
+    "build": "webpack --config config/webpack.dev.conf.js",
+    "build:pro": "webpack --config config/webpack.prod.conf.js"
   },
   "author": "",
   "license": "ISC",
@@ -39,7 +39,8 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.8.0"
   },
   "browserslist": [
     "last 1 version",

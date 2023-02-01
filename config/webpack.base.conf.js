@@ -1,8 +1,6 @@
+// 公共配置文件
 const { resolve } = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -11,7 +9,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     // 输出文件的目标路径，必须要是绝对路径
-    path: resolve(__dirname, 'webpackStudy'),
+    path: resolve(__dirname, '../webpackStudy'),
     // 输出文件名称
     filename: 'index.js',
   },
@@ -138,31 +136,9 @@ module.exports = {
       },
     ],
   },
-  optimization: {
-    minimize: true,
-    minimizer: [
-      // JS压缩
-      new TerserPlugin({
-        test: /\.js(\?.*)?$/i, //匹配参与压缩的文件
-        parallel: true, // 使用多进程并行运行
-        extractComments: false, //将注释剥离到单独的文件中
-        //Terser 压缩配置
-        terserOptions: {
-          format: {
-            comments: false,
-          },
-          // 生产环境生效
-          compress: {
-            drop_console: true, //传true就是干掉所有的console.*这些函数的调用.
-            drop_debugger: true, //干掉那些debugger;
-            pure_funcs: ['console.log'], // 如果你要干掉特定的函数比如console.info ，又想删掉后保留其参数中的副作用，那用pure_funcs来处理
-          },
-        },
-      }),
-      // css压缩
-      new CssMinimizerPlugin(),
-    ],
-  },
+  // 配置目标
+  target: 'web',
+
   plugins: [
     // Css压缩
     new MiniCssExtractPlugin({
@@ -171,25 +147,6 @@ module.exports = {
 
     require('autoprefixer'),
 
-    // Html的配置
-    new HtmlWebpackPlugin({
-      // 指定打包后的名称
-      filename: 'index.html',
-      // 用来指定生成HTML的模版
-      template: './src/index.ejs',
-      // 指定HTML中使用的变量
-      title: 'Webpack.Demo',
-      // 压缩HTML
-      // minify: {
-      //   collapseWhitespace: true, // 折叠空格
-      //   keepClosingSlash: true,
-      //   removeComments: true, // 删除注释
-      //   removeRedundantAttributes: true,
-      //   removeScriptTypeAttributes: true,
-      //   removeStyleLinkTypeAttributes: true,
-      //   useShortDoctype: true,
-      // },
-    }),
     new ESLintPlugin({
       fix: true,
     }),
@@ -200,38 +157,4 @@ module.exports = {
     // 打包之前，删除历史文件
     new CleanWebpackPlugin(),
   ],
-
-  // 开发服务器
-  devServer: {
-    // 指定加载内容的路径
-    // contentBase新版中已经被static替换
-    static: resolve(__dirname, 'src'),
-
-    //启用gzip压缩
-    compress: true,
-
-    // 指定端口号
-    port: 9999,
-
-    // 启用热更新
-    liveReload: true,
-
-    // 配置代理：解决接口跨域问题（整体模式固定）
-    proxy: {
-      // http://localhost:9999/api
-      '/api': {
-        // http://localhost:9999/api/users ==> https://api.github.com/api/users
-        target: 'https://api.github.com',
-        pathRewrite:{
-          // 将api替换成空
-          // 即 http://localhost:9999/api/users ==> https://api.github.com/users
-          '^/api':''
-        },
-        // 不能使用localhost:9999 作为github的主机名，也就是把原来的域名改成github去访问
-        changeOrigin:true
-      },
-    },
-  },
-  // 配置目标
-  target: 'web',
 };
