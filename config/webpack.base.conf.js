@@ -11,7 +11,8 @@ module.exports = {
     // 输出文件的目标路径，必须要是绝对路径
     path: resolve(__dirname, '../webpackStudy'),
     // 输出文件名称
-    filename: 'index.js',
+    filename: "static/js/[name].js",
+    chunkFilename: "static/js/[name].chunk.js",
   },
   resolve: {
     alias: {
@@ -146,10 +147,10 @@ module.exports = {
     }),
 
     require('autoprefixer'),
-
-    new ESLintPlugin({
-      fix: true,
-    }),
+    // ESlint配置
+    // new ESLintPlugin({
+    //   fix: true,
+    // }),
     // 将src中不需要处理的文件，直接输出到目录中
     new CopyWebpackPlugin({
       patterns: [{ from: 'src/public', to: 'public' }],
@@ -157,4 +158,37 @@ module.exports = {
     // 打包之前，删除历史文件
     new CleanWebpackPlugin(),
   ],
+  devServer: {
+    // 指定加载内容的路径
+    // contentBase新版中已经被static替换
+    static: resolve(__dirname, 'src'),
+
+    //启用gzip压缩
+    compress: true,
+
+    // 指定端口号
+    port: 9999,
+
+    // 启用热更新
+    liveReload: true,
+
+    // 配置代理：解决接口跨域问题（整体模式固定）
+    proxy: {
+      // http://localhost:9999/api
+      '/api': {
+        // http://localhost:9999/api/users ==> https://api.github.com/api/users
+        target: 'https://api.github.com',
+        pathRewrite: {
+          // 将api替换成空
+          // 即 http://localhost:9999/api/users ==> https://api.github.com/users
+          '^/api': "",
+        },
+        // 不能使用localhost:9999 作为github的主机名，也就是把原来的域名改成github去访问
+        changeOrigin: true,
+      },
+    },
+
+    // 运行serve命令后，立刻打开
+    open: true,
+  },
 };

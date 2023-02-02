@@ -8,7 +8,7 @@
 import '@/assets/css/index.scss';
 import { name } from '@/assets/js/public';
 // 以模块的方式引入图片
-import boy from '@/assets/icon/xph.gif'
+// import boy from '@/assets/icon/xph.gif'
 import blackIcon from '@/assets/icon/blank.png'
 import eyeIcon from '@/assets/icon/eye.png'
 
@@ -21,10 +21,10 @@ window.showMsg = showMsg;
 
 
 // eslint-disable-next-lint
-const img = new Image()
-img.src = boy
-// eslint-disable-next-lint
-document.body.append(img)
+// const img = new Image()
+// img.src = boy
+// // eslint-disable-next-lint
+// document.body.append(img)
 
 // eslint-disable-next-lint
 const img1 = new Image()
@@ -37,3 +37,5 @@ const img2 = new Image()
 img2.src = eyeIcon
 // eslint-disable-next-lint
 document.body.append(img2)
+
+console.log('接口地址',API_BASE_API)

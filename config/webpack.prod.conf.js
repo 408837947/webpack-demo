@@ -4,16 +4,22 @@ const baseWebpackConfig = require('./webpack.base.conf');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const webpack = require('webpack');
 const prodWebpackConfig = merge(baseWebpackConfig, {
   // 这里是生产模式对应的配置
   mode: 'production',
   plugins: [
+    new webpack.DefinePlugin({
+      // 生产环境下的接口地址
+      // 变量值要求是一个代码片段
+      API_BASE_API: JSON.stringify('https://apiprod.example.com'),
+    }),
     // Html的配置
     new HtmlWebpackPlugin({
       // 指定打包后的名称
       filename: 'index.html',
       // 用来指定生成HTML的模版
-      template: '../src/index.ejs',
+      template: './src/index.ejs',
       // 指定HTML中使用的变量
       title: 'Webpack.Demo',
       // 压缩HTML
@@ -30,6 +36,10 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
   ],
   optimization: {
     minimize: true,
+    splitChunks: {
+      chunks: 'all',
+      name: false,
+    },
     minimizer: [
       // JS压缩
       new TerserPlugin({
@@ -53,6 +63,10 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
       new CssMinimizerPlugin(),
     ],
   },
+  // performance: {
+  //   maxEntrypointSize: 10000000,
+  //   maxAssetSize: 30000000,
+  // },
 });
 
 module.exports = prodWebpackConfig;

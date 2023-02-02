@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "webpack serve --open",
     "build": "webpack --config config/webpack.dev.conf.js",
-    "build:pro": "webpack --config config/webpack.prod.conf.js"
+    "build:pro": "webpack --config config/webpack.prod.conf.js",
+    "dev": "webpack serve --config config/webpack.dev.conf.js",
+    "start": "webpack serve --config config/webpack.prod.conf.js"
   },
   "author": "",
   "license": "ISC",
