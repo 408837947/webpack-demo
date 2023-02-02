@@ -11,8 +11,8 @@ module.exports = {
     // 输出文件的目标路径，必须要是绝对路径
     path: resolve(__dirname, '../webpackStudy'),
     // 输出文件名称
-    filename: "static/js/[name].js",
-    chunkFilename: "static/js/[name].chunk.js",
+    filename: 'static/js/[name].js',
+    chunkFilename: 'static/js/[name].chunk.js',
   },
   resolve: {
     alias: {
@@ -61,9 +61,6 @@ module.exports = {
             plugins: [
               [
                 '@babel/plugin-transform-runtime',
-                {
-                  corejs: 3, // 使用这行代码需要安装@babel/runtime-corejs3 包
-                },
               ],
             ],
           },
@@ -181,7 +178,7 @@ module.exports = {
         pathRewrite: {
           // 将api替换成空
           // 即 http://localhost:9999/api/users ==> https://api.github.com/users
-          '^/api': "",
+          '^/api': '',
         },
         // 不能使用localhost:9999 作为github的主机名，也就是把原来的域名改成github去访问
         changeOrigin: true,
@@ -189,6 +186,6 @@ module.exports = {
     },
 
     // 运行serve命令后，立刻打开
-    open: true,
+    open: false,
   },
 };
