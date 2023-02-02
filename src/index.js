@@ -5,13 +5,13 @@
 // import '@babel/polyfill'
 
 // 引入样式文件
-import '@/assets/css/index.scss';
+import '@/assets/css/index.css';
 import { name } from '@/assets/js/public';
 // 以模块的方式引入图片
-// import boy from '@/assets/icon/xph.gif'
+import boy from '@/assets/icon/xph.gif'
 import blackIcon from '@/assets/icon/blank.png'
 import eyeIcon from '@/assets/icon/eye.png'
-
+import readme from '../README.md'
 const showMsg = () => {
   // eslint-disable-next-lint
   alert(name());
@@ -19,12 +19,13 @@ const showMsg = () => {
 // eslint-disable-next-lint
 window.showMsg = showMsg;
 
+console.log(readme);
 
 // eslint-disable-next-lint
-// const img = new Image()
-// img.src = boy
-// // eslint-disable-next-lint
-// document.body.append(img)
+const img = new Image()
+img.src = boy
+// eslint-disable-next-lint
+document.body.append(img)
 
 // eslint-disable-next-lint
 const img1 = new Image()

@@ -1,9 +1,10 @@
 // 公共配置文件
 const { resolve } = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
+// const ESLintPlugin = require('eslint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MyPlugin = require('../plugin/MyPlugin');
 module.exports = {
   mode: process.env.NODE_ENV ? process.env.NODE_ENV : 'development',
   entry: './src/index.js',
@@ -58,11 +59,7 @@ module.exports = {
                 },
               ],
             ],
-            plugins: [
-              [
-                '@babel/plugin-transform-runtime',
-              ],
-            ],
+            plugins: [['@babel/plugin-transform-runtime']],
           },
         },
       },
@@ -132,6 +129,15 @@ module.exports = {
           filename: 'fonts/[name][ext]',
         },
       },
+      {
+        test: /\.md$/i,
+        use: {
+          loader: './src/loader/markdown-loader',
+          options: {
+            size: 20,
+          },
+        },
+      },
     ],
   },
   // 配置目标
@@ -154,6 +160,11 @@ module.exports = {
     }),
     // 打包之前，删除历史文件
     new CleanWebpackPlugin(),
+
+    // 引入自定义插件
+    new MyPlugin({
+      target: '.css',
+    }),
   ],
   devServer: {
     // 指定加载内容的路径
