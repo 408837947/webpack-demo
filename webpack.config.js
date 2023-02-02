@@ -64,7 +64,7 @@ module.exports = (env,argv)=>{
                 [
                   '@babel/plugin-transform-runtime',
                   {
-                    corejs: 3, // 使用这行代码需要安装@babel/runtime-corejs3 包
+                    corejs: false, // 使用这行代码需要安装@babel/runtime-corejs3 包
                   },
                 ],
               ],
