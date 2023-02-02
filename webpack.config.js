@@ -63,7 +63,7 @@ module.exports = {
               [
                 '@babel/plugin-transform-runtime',
                 {
-                  corejs: 3, // 使用这行代码需要安装@babel/runtime-corejs3 包
+                  corejs: false, // 开发JS库或npm包等一般使用2或者3，其他一般使用false
                 },
               ],
             ],
