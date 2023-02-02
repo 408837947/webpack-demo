@@ -1,6 +1,7 @@
 const name = (params) => {
   const p = params ?? 12344;
   return `liu${p}`;
+  console.log(123);
 };
 
 /*

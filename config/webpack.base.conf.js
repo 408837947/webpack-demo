@@ -7,13 +7,17 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MyPlugin = require('../plugin/MyPlugin');
 module.exports = {
   mode: process.env.NODE_ENV ? process.env.NODE_ENV : 'development',
-  entry: './src/index.js',
+  // entry: './src/index.js',
+  entry:{
+    'index':"./src/index.js",
+    "about":"./src/about.js"
+  },
   output: {
     // 输出文件的目标路径，必须要是绝对路径
     path: resolve(__dirname, '../webpackStudy'),
     // 输出文件名称
-    filename: 'static/js/[name].js',
-    chunkFilename: 'static/js/[name].chunk.js',
+    filename: 'static/js/[name].[chunkhash].js',
+    chunkFilename: 'static/js/[name].[chunkhash].js',
   },
   resolve: {
     alias: {
@@ -45,6 +49,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
+            // 第二次构建时，会读取之前的缓存
+            cacheDirectory:true,
             presets: [
               [
                 '@babel/preset-env',
@@ -87,7 +93,7 @@ module.exports = {
           },
         },
         generator: {
-          filename: 'image/[name][ext]',
+          filename: 'image/[name][hash][ext]',
         },
       },
       // 处理html，会与html-webpack-plugin有冲突
@@ -146,7 +152,7 @@ module.exports = {
   plugins: [
     // Css压缩
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css', // [name]的意思是保持打包之前的css名字
+      filename: 'css/[name].[chunkhash].css', // [name]的意思是保持打包之前的css名字
     }),
 
     require('autoprefixer'),

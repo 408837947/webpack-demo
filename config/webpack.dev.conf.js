@@ -20,6 +20,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: './src/index.ejs',
       // 指定HTML中使用的变量
       title: 'Webpack.Demo',
+      chunks:['index'] // 指定要加载的JS
     }),
   ],
 });

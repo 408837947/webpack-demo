@@ -8,6 +8,8 @@ const webpack = require('webpack');
 const prodWebpackConfig = merge(baseWebpackConfig, {
   // 这里是生产模式对应的配置
   mode: 'production',
+  // Tree Shaking仅支持 source-map | inline-source-map | hidden-source-map | nosources-source-map
+  devtool:'source-map', // 启动source map定位问题
   plugins: [
     new webpack.DefinePlugin({
       // 生产环境下的接口地址
@@ -34,8 +36,11 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
       },
     }),
   ],
+  // 优化策略
   optimization: {
     minimize: true,
+    // 标记未使用代码
+    usedExports:true,
     splitChunks: {
       chunks: 'all',
       name: false,
@@ -52,21 +57,21 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
             comments: false,
           },
           // 生产环境生效
-          compress: {
-            drop_console: true, //传true就是干掉所有的console.*这些函数的调用.
-            drop_debugger: true, //干掉那些debugger;
-            pure_funcs: ['console.log'], // 如果你要干掉特定的函数比如console.info ，又想删掉后保留其参数中的副作用，那用pure_funcs来处理
-          },
+          // compress: {
+          //   drop_console: true, //传true就是干掉所有的console.*这些函数的调用.
+          //   drop_debugger: true, //干掉那些debugger;
+          //   pure_funcs: ['console.log'], // 如果你要干掉特定的函数比如console.info ，又想删掉后保留其参数中的副作用，那用pure_funcs来处理
+          // },
         },
       }),
       // css压缩
       new CssMinimizerPlugin(),
     ],
   },
-  // performance: {
-  //   maxEntrypointSize: 10000000,
-  //   maxAssetSize: 30000000,
-  // },
+  performance: {
+    maxEntrypointSize: 10000000,
+    maxAssetSize: 30000000,
+  },
 });
 
 module.exports = prodWebpackConfig;
